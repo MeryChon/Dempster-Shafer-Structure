@@ -1,0 +1,17 @@
+from aggregators.abstract import FuzzyAggregator
+from fuzzy_numbers.fuzzy_triangular_number import FuzzyTriangularNumber as FTN
+
+
+class FuzzyWeightedAverageAggregator(FuzzyAggregator):
+    def aggregate(self):
+        result = {}
+        for alternative_key, focal_collections in self.payoff_collections.items():
+            for focal_elem_key, payoffs in focal_collections.items():
+                aggregated_payoff = FTN()
+                weight_vector = self.weight_vectors.get(len(payoffs))
+                for index, weight in enumerate(weight_vector):
+                    product = FTN(*payoffs[index]).multiply_by_const(weight)
+                    aggregated_payoff += product
+                result.setdefault(alternative_key, {})[focal_elem_key] = aggregated_payoff
+
+        return result
