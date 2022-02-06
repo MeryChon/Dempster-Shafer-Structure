@@ -99,3 +99,4 @@ if __name__ == '__main__':
                                   weight_vectors=get_weight_vectors(),
                                   payoff_matrix_data=get_payoff_matrix_data())
     ds_structure.run(FuzzyWeightedAverageAggregator)
+    ds_structure.print_report()

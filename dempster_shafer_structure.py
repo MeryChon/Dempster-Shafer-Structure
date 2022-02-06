@@ -24,6 +24,22 @@ class DempsterShafer(object):
         self._calculate_aggregated_payoff()
         self._calculate_generalized_expected_value()
 
+    def print_report(self):
+        values_list = [
+            {
+                "key": alt_key,
+                "value": value
+            } for alt_key, value in self.generalized_expected_values.items()
+        ]
+        values_list.sort(key=lambda x: x.get("value"))
+        print("====================================")
+        print("====== Ordered Alternatives ========")
+        for alternative in values_list:
+            print(f"{alternative.get('key')}: {round(alternative.get('value'), 2)}")
+        best_alt = values_list[0].get("key")
+        print(f"The best alternative is {best_alt} - {self.alternatives.get(best_alt)}")
+        print("====================================")
+
     def _calculate_payoff_collections(self):
         print("---- Calculating payoff collections ----")
         for alternative_key, states_data in self.payoff_matrix.items():

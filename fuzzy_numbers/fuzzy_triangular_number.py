@@ -10,6 +10,21 @@ class FuzzyTriangularNumber(object):
     def __str__(self):
         return f"({self.a1}, {self.a2}, {self.a3})"
 
+    def __gt__(self, other):
+        return self.a2 > self.a2
+
+    def __ge__(self, other):
+        return other.a2 >= self.a2
+
+    def __lt__(self, other):
+        return other.a2 < self.a2
+
+    def __le__(self, other):
+        return other.a2 <= self.a2
+
+    def __round__(self, n=None):
+        return FuzzyTriangularNumber(round(self.a1, n), round(self.a2, n), round(self.a3, n))
+
     def multiply_by_const(self, c):
         return FuzzyTriangularNumber(c * self.a1, c * self.a2, c * self.a3)
 
