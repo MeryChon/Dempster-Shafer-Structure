@@ -1,7 +1,7 @@
 import json
 
 import pandas as pd
-from fuzzy_numbers.fuzzy_triangular_number import FuzzyTriangularNumber as FTN
+from fuzzy_numbers.triangular_fuzzy_number import TriangularFuzzyNumber as FTN
 
 from aggregators.abstract import FuzzyAggregator
 
