@@ -10,7 +10,7 @@ class FuzzyWeightedAverageAggregator(FuzzyAggregator):
                 aggregated_payoff = TFN()
                 weight_vector = self.weight_vectors.get(len(payoffs))
                 for index, weight in enumerate(weight_vector):
-                    product = TFN(*payoffs[index]).multiply_by_const(weight)
+                    product = payoffs[index].multiply_by_const(weight)
                     aggregated_payoff += product
                 result.setdefault(alternative_key, {})[focal_elem_key] = aggregated_payoff
 

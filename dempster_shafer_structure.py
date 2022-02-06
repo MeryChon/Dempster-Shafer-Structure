@@ -1,9 +1,5 @@
-import json
-
-import pandas as pd
-from fuzzy_numbers.triangular_fuzzy_number import TriangularFuzzyNumber as FTN
-
 from aggregators.abstract import FuzzyAggregator
+from fuzzy_numbers.triangular_fuzzy_number import TriangularFuzzyNumber as TFN
 
 
 class DempsterShafer(object):
@@ -19,8 +15,8 @@ class DempsterShafer(object):
         self.generalized_expected_values = {}
 
     def run(self, aggregator):
-        self.aggregator = aggregator(self.payoff_collections, self.weight_vectors)
         self._calculate_payoff_collections()
+        self.aggregator = aggregator(self.payoff_collections, self.weight_vectors)
         self._calculate_aggregated_payoff()
         self._calculate_generalized_expected_value()
 
@@ -48,7 +44,7 @@ class DempsterShafer(object):
                 states = focal_element_data.get("states")
                 for state_key in states:
                     alternative_collection.setdefault(focal_element_key, []).append(
-                        self.payoff_matrix[alternative_key][state_key])
+                        TFN(*self.payoff_matrix[alternative_key][state_key]))
             self.payoff_collections[alternative_key] = alternative_collection
         self._print_payoff_collections(self.payoff_collections)
         print("----------------------------------------")
@@ -78,7 +74,7 @@ class DempsterShafer(object):
     def _calculate_generalized_expected_value(self):
         print("---- Calculating generalized expected values ----")
         for alt_key, focal_elem_aggregated_payoffs in self.aggregated_payoffs.items():
-            expected_value = FTN()
+            expected_value = TFN()
             for focal_elem, aggregated_payoff in focal_elem_aggregated_payoffs.items():
                 expected_value += aggregated_payoff.multiply_by_const(self.focal_elements.get(focal_elem).get("bpa"))
             self.generalized_expected_values[alt_key] = expected_value

@@ -1,3 +1,4 @@
+from aggregators.FOWA import FuzzyOrderedWeightedAverageAggregator
 from aggregators.FWA import FuzzyWeightedAverageAggregator
 from dempster_shafer_structure import DempsterShafer
 
@@ -98,5 +99,14 @@ if __name__ == '__main__':
                                   focal_elements=get_focal_elements(),
                                   weight_vectors=get_weight_vectors(),
                                   payoff_matrix_data=get_payoff_matrix_data())
+    print("===================================================")
+    print("============ Fuzzy Weighted Average ===============")
+    print("===================================================")
     ds_structure.run(FuzzyWeightedAverageAggregator)
+    ds_structure.print_report()
+
+    print("===========================================================")
+    print("============ Fuzzy Ordered Weighted Average ===============")
+    print("===========================================================")
+    ds_structure.run(FuzzyOrderedWeightedAverageAggregator)
     ds_structure.print_report()
