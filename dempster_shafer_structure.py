@@ -3,12 +3,14 @@ from fuzzy_numbers.triangular_fuzzy_number import TriangularFuzzyNumber as TFN
 
 
 class DempsterShafer(object):
-    def __init__(self, alternatives, states_of_nature, focal_elements, weight_vectors, payoff_matrix_data):
+    def __init__(self, alternatives, states_of_nature, focal_elements, weight_vectors, payoff_matrix_data,
+                 subjective_probability):
         self.alternatives = alternatives
         self.states_of_nature = states_of_nature
         self.focal_elements = focal_elements
         self.weight_vectors = weight_vectors
         self.payoff_matrix = payoff_matrix_data
+        self.subjective_probability = subjective_probability
         self.aggregator = None  # type: FuzzyAggregator | None
         self.payoff_collections = {}
         self.aggregated_payoffs = {}
@@ -16,7 +18,8 @@ class DempsterShafer(object):
 
     def run(self, aggregator):
         self._calculate_payoff_collections()
-        self.aggregator = aggregator(self.payoff_collections, self.weight_vectors)
+        self.aggregator = aggregator(self.payoff_collections, self.weight_vectors, self.subjective_probability,
+                                     len(self.states_of_nature))
         self._calculate_aggregated_payoff()
         self._calculate_generalized_expected_value()
 
