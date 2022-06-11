@@ -81,13 +81,31 @@ class TestQROFNInitialisation(TestCase):
 
 class TestQROFNSum(TestCase):
     def test_add_intuitionistic(self):
-        pass
+        a1 = QROFN(0.2, 0.3)
+        a2 = QROFN(0.6, 0.2)
+        a3 = a1 + a2
+
+        self.assertEqual(a3.m, 0.68)
+        self.assertEqual(a3.n, 0.06)
+        self.assertEqual(a3.q, 1)
 
     def test_add_pythagorean(self):
-        pass
+        a1 = QROFN(0.7, 0.5)
+        a2 = QROFN(0.3, 0.8)
+        a3 = a1 + a2
 
-    def test_add_higher_rung(self):
-        pass
+        self.assertEqual(a3.m, 0.732)
+        self.assertEqual(a3.n, 0.4)
+        self.assertEqual(a3.q, 2)
+
+    def test_add_different_rung_numbers(self):
+        a1 = QROFN(0.9, 0.5)
+        a2 = QROFN(0.8, 0.4)
+        a3 = a1 + a2
+
+        self.assertEqual(a3.m, 0.954)
+        self.assertEqual(a3.n, 0.2)
+        self.assertEqual(a3.q, 2)
 
 
 class TestQROFNMultiply(TestCase):

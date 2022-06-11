@@ -4,7 +4,7 @@ import decimal
 class QROFN(object):
     _m = None
     _n = None
-    _q = None
+    _q: int = None
     _score = None
     _accuracy = None
 
@@ -18,23 +18,23 @@ class QROFN(object):
 
     @property
     def m(self):
-        return float(self._m)
+        return round(float(self._m), 3)
 
     @property
     def n(self):
-        return float(self._n)
+        return round(float(self._n), 3)
 
     @property
     def q(self):
-        return float(self._q)
+        return round(float(self._q), 3)
 
     @property
     def score(self):
-        return float(self._score)
+        return round(float(self._score), 3)
 
     @property
     def accuracy(self):
-        return float(self._accuracy)
+        return round(float(self._accuracy), 3)
 
     def validate(self, m, n, q):
         if m < 0 or m > 1 or n < 0 or n > 1:
@@ -51,17 +51,17 @@ class QROFN(object):
 
     def __add__(self, other):
         rung = int(max(self.q, other.q))
-        m_sum = (self._m ** rung + self._n ** rung - self._m ** rung * self._n ** rung) ** decimal.Decimal(
+        m_sum = (self._m ** rung + other._m ** rung - (self._m ** rung * other._m ** rung)) ** decimal.Decimal(
             str(1 / rung))
-        n_sum = self._n * self._m
-        return QROFN(m_sum, n_sum, rung)
+        n_sum = self._n * other._n
+        return QROFN(m_sum, n_sum)
 
     def __mul__(self, other):
         if isinstance(other, QROFN):
             rung = max(self._q, other._q)
             m_product = self._m * other._m
             n_product = (1 - (1 - self._n ** rung) * (1 - other._n ** rung)) ** (1 / rung)
-            product = QROFN(m_product, n_product, rung)
+            product = QROFN(m_product, n_product)
         elif type(other) in [int, float, decimal.Decimal]:
             if other < 0:
                 raise ValueError("Multiplication by negative scalar is not defined")
