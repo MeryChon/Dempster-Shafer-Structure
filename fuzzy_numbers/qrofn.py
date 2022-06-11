@@ -58,9 +58,9 @@ class QROFN(object):
 
     def __mul__(self, other):
         if isinstance(other, QROFN):
-            rung = max(self._q, other._q)
+            rung = int(max(self._q, other._q))
             m_product = self._m * other._m
-            n_product = (1 - (1 - self._n ** rung) * (1 - other._n ** rung)) ** (1 / rung)
+            n_product = (1 - (1 - self._n ** rung) * (1 - other._n ** rung)) ** decimal.Decimal(str(1 / rung))
             product = QROFN(m_product, n_product)
         elif type(other) in [int, float, decimal.Decimal]:
             if other < 0:

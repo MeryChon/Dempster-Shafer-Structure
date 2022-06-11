@@ -110,13 +110,31 @@ class TestQROFNSum(TestCase):
 
 class TestQROFNMultiply(TestCase):
     def test_multiply_intuitionistic_numbers(self):
-        pass
+        a1 = QROFN(0.2, 0.3)
+        a2 = QROFN(0.6, 0.2)
+        a3 = a1 * a2
+
+        self.assertEqual(a3.m, 0.12)
+        self.assertEqual(a3.n, 0.44)
+        self.assertEqual(a3.q, 1)
 
     def test_multiply_pythagorean_numbers(self):
-        pass
+        a1 = QROFN(0.7, 0.5)
+        a2 = QROFN(0.3, 0.8)
+        a3 = a1 * a2
 
-    def test_multiply_higher_order_numbers(self):
-        pass
+        self.assertEqual(a3.m, 0.21)
+        self.assertEqual(a3.n, 0.854)
+        self.assertEqual(a3.q, 2)
+
+    def test_multiply_different_rung_numbers(self):
+        a1 = QROFN(0.9, 0.5)
+        a2 = QROFN(0.8, 0.4)
+        a3 = a1 * a2
+
+        self.assertEqual(a3.m, 0.72)
+        self.assertEqual(a3.n, 0.566)
+        self.assertEqual(a3.q, 2)
 
 
 class TestQROFNMultiplyByScalar(TestCase):
