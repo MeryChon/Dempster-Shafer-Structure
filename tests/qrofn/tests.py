@@ -139,13 +139,27 @@ class TestQROFNMultiply(TestCase):
 
 class TestQROFNMultiplyByScalar(TestCase):
     def test_multiply_intuitionistic_numbers(self):
-        pass
+        a = QROFN(0.7, 0.2)
+        p = a * 3
+
+        self.assertEqual(p.m, 0.973)
+        self.assertEqual(p.n, 0.008)
+        self.assertEqual(p.q, 1)
 
     def test_multiply_pythagorean_numbers(self):
-        pass
+        a = QROFN(0.8, 0.4)
+        p = a * 0.5
 
-    def test_multiply_higher_order_numbers(self):
-        pass
+        self.assertEqual(p.m, 0.632)
+        self.assertEqual(p.n, 0.632)
+        self.assertEqual(p.q, 2)
 
-    def test_fail_multiply_by_negative(self):
-        pass
+    def test_fail_multiply_by_non_positive(self):
+        a = QROFN(0.8, 0.4)
+        with self.assertRaises(ValueError) as cm:
+            a * 0
+            self.assertEqual(str(cm.exception), "Multiplication by non-positive scalar is not defined")
+
+        with self.assertRaises(ValueError) as cm:
+            a * -0.7
+            self.assertEqual(str(cm.exception), "Multiplication by non-positive scalar is not defined")
