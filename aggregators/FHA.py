@@ -20,7 +20,7 @@ class FuzzyHybridAverageAggregator(FuzzyAggregator):
     def get_sorted_payoffs(self, payoffs):
         weighted_values = []
         for index, payoff in enumerate(payoffs):
-            weighted_value = payoff.multiply_by_const(self.num_states * self.subjective_probability[index])
+            weighted_value = payoff.multiply_by_const(self.num_attributes * self.subjective_probability[index])
             weighted_values.append(weighted_value)
         weighted_values.sort()
 
