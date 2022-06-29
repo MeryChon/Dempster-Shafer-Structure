@@ -2,6 +2,7 @@ from aggregators.FHA import FuzzyHybridAverageAggregator
 from aggregators.FOWA import FuzzyOrderedWeightedAverageAggregator
 from aggregators.FWA import FuzzyWeightedAverageAggregator
 from dempster_shafer_structure import DempsterShafer
+from runner import run
 
 
 def get_alternatives():
@@ -99,26 +100,4 @@ def get_payoff_matrix_data():
 
 
 if __name__ == '__main__':
-    ds_structure = DempsterShafer(alternatives=get_alternatives(),
-                                  states_of_nature=get_states_of_nature(),
-                                  focal_elements=get_focal_elements(),
-                                  weight_vectors=get_weight_vectors(),
-                                  payoff_matrix_data=get_payoff_matrix_data(),
-                                  subjective_probability=get_subjective_probability_vector())
-    print("===================================================")
-    print("============ Fuzzy Weighted Average ===============")
-    print("===================================================")
-    ds_structure.run(FuzzyWeightedAverageAggregator)
-    ds_structure.print_report()
-
-    print("===========================================================")
-    print("============ Fuzzy Ordered Weighted Average ===============")
-    print("===========================================================")
-    ds_structure.run(FuzzyOrderedWeightedAverageAggregator)
-    ds_structure.print_report()
-
-    print("===========================================================")
-    print("============ Fuzzy Hybrid Average ===============")
-    print("===========================================================")
-    # ds_structure.run(FuzzyHybridAverageAggregator)
-    # ds_structure.print_report()
+    run()
